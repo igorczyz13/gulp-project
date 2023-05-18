@@ -1,3 +1,4 @@
+const {src, dest} = require('gulp');
 const sass = require('gulp-sass')(require('sass'));
 
 function sassCompiler(done) {
@@ -7,4 +8,4 @@ function sassCompiler(done) {
     done()
 }
 
-exports.default = sassCompiler
+exports.sassCompiler = sassCompiler
