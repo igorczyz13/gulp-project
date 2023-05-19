@@ -1,9 +1,13 @@
 body {
-    background-color: #fff;
-    font-weight: 50;
     display: flex;
     justify-content: center;
-    align-items: center;
     transition: all 1s;
-    // to jest komentarz
+    // komentarz
+    appearance: none;
+}
+
+p {
+    font-family: sans-serif;
+    font-size: 48px;
+    color: #000;
 }
