@@ -11,6 +11,7 @@ const babel = require('gulp-babel');
 const uglify = require('gulp-uglify')
 const imagemin = require('gulp-imagemin');
 const sourcemaps = require('gulp-sourcemaps');
+const browserSync = require('browser-sync').create();
 
 
 const paths = {
@@ -55,6 +56,15 @@ function convertImages(done) {
     src(paths.img)
         .pipe(imagemin())
         .pipe(dest(paths.imgDest));
+    done()
+}
+
+function startBrowserSync(done) {
+    browserSync.init({
+        server: {
+            baseDir: "./"
+        }
+    });
     done()
 }
 
