@@ -1,7 +1,9 @@
 const {
     src,
     dest,
-    series
+    series,
+    parallel,
+    watch
 } = require('gulp');
 const sass = require('gulp-sass')(require('sass'));
 const cssnano = require('gulp-cssnano');
@@ -12,6 +14,7 @@ const uglify = require('gulp-uglify')
 const imagemin = require('gulp-imagemin');
 const sourcemaps = require('gulp-sourcemaps');
 const browserSync = require('browser-sync').create();
+const reload = browserSync.reload;
 
 
 const paths = {
@@ -68,4 +71,12 @@ function startBrowserSync(done) {
     done()
 }
 
-exports.default = series(sassCompiler, javaScript, convertImages)
+function watchForChanges(done) {
+    watch('./*.html').on("change", browserSync.reload);
+    watch([paths.sass, paths.js], parallel(sassCompiler, javaScript)).on("change", browserSync.reload);
+    watch(paths.img, convertImages).on("change", browserSync.reload);
+    done()
+}
+
+const mainFunctions = parallel(sassCompiler, javaScript, convertImages)
+exports.default = series(mainFunctions, startBrowserSync, watchForChanges)
